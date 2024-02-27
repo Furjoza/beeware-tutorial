@@ -5,6 +5,11 @@ import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
 
+def greeting(name):
+    if name:
+        return f"Hello, {name}"
+    else:
+        return "Hello, stranger"
 
 class HelloWorld(toga.App):
     def startup(self):
@@ -26,22 +31,18 @@ class HelloWorld(toga.App):
             style=Pack(padding=5)
         )
 
-        self.print_label = toga.Label(
-            "",
-            style=Pack(padding=(0, 5))
-        )
-
         main_box.add(name_box)
         main_box.add(button)
-        main_box.add(self.print_label)
 
         self.main_window = toga.MainWindow(title=self.formal_name)
         self.main_window.content = main_box
         self.main_window.show()
 
     def say_hello(self, widget):
-        # print(f"Kocham Cię, {self.name_input.value}")
-        self.print_label.text = f"Kocham Cię, {self.name_input.value}"
+        self.main_window.info_dialog(
+            greeting(self.name_input.value),
+            "Hi there!",
+        )
 
 
 def main():
